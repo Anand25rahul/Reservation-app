@@ -1,0 +1,16 @@
+package org.jsp.lombokpractice;
+
+public class TestEmployee {
+public static void main(String[] args) {
+	Employee e = new Employee(1,"ABC","Trainer",50000,9876543210L,"abc123");
+	
+	e.setDesg("Developer");
+	System.out.println(e);
+	
+	Employee e2 = new Employee();
+	e2.setDesg("Test Engineer");
+	e2.setSalary(65000);
+	
+	Employee e3 = Employee.builder().name("Rahul").desg("Trainer").salary(55000).password("rahul123").id(4).phone(9632587410L).build();
+}
+}

@@ -1,0 +1,61 @@
+package org.jsp.reservationapp.service;
+
+import java.util.Optional;
+
+import org.jsp.reservationapp.dao.BusDao;
+import org.jsp.reservationapp.dto.AdminRequest;
+import org.jsp.reservationapp.dto.BusRequest;
+import org.jsp.reservationapp.dto.ResponseStructure;
+import org.jsp.reservationapp.exception.AdminNotFoundException;
+import org.jsp.reservationapp.model.Admin;
+import org.jsp.reservationapp.model.Bus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+@Service
+public class BusService {
+	@Autowired
+	private BusDao busDao;
+
+	public ResponseEntity<ResponseStructure<Bus>> saveAdmin(BusRequest busRequest) {
+		ResponseStructure<Bus> structure = new ResponseStructure<>();
+		structure.setMessage("Bus saved");
+		structure.setData(busDao.saveAdmin(mapToBus(busRequest)));
+		structure.setStatusCode(HttpStatus.CREATED.value());
+		return ResponseEntity.status(HttpStatus.CREATED).body(structure);
+	}
+
+	public ResponseEntity<ResponseStructure<Bus>> update(BusRequest busRequest, int id) {
+		Optional<Bus> recBus = busDao.findById(id);
+		ResponseStructure<Bus> structure = new ResponseStructure<>();
+		if (recBus.isPresent()) {
+			Bus dbBus = mapToBus(busRequest);
+			dbBus.setId(id);
+			structure.setData(busDao.saveBus(dbBus));
+			structure.setMessage("Bus Updated");
+			structure.setStatusCode(HttpStatus.ACCEPTED.value());
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(structure);
+		}
+		throw new AdminNotFoundException("Cannot Update Bus as Id is Invalid");
+	}
+
+	public ResponseEntity<ResponseStructure<Bus>> findById(int id) {
+		ResponseStructure<Bus> structure = new ResponseStructure<>();
+		Optional<Bus> dbBus = busDao.findById(id);
+		if (dbBus.isPresent()) {
+			structure.setData(dbBus.get());
+			structure.setMessage("Bus Found");
+			structure.setStatusCode(HttpStatus.OK.value());
+			return ResponseEntity.status(HttpStatus.OK).body(structure);
+		}
+		throw new AdminNotFoundException("Invalid Bus Id");
+	}
+	
+	private Bus mapToBus(BusRequest busRequest) {
+		return Bus.builder().name(busRequest.getName()).dept_date(busRequest.getDept_date()).bus_number(busRequest.getBus_number())
+				.from_location(busRequest.getFrom_location()).to_location(busRequest.getTo_location()).seat_number(busRequest.getSeat_number()).build();
+	}
+}
+
