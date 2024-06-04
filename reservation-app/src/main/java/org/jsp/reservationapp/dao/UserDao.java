@@ -12,12 +12,14 @@ public class UserDao {
 	@Autowired
 	private UserRepository userRepository;
 
-	public User saveUser(org.jsp.reservationapp.model.User user) {
+	public User saveUser(User user) {
 		return userRepository.save(user);
 	}
+
 	public Optional<User> findById(int id) {
 		return userRepository.findById(id);
 	}
+
 	public Optional<User> verify(long phone, String password) {
 		return userRepository.findByPhoneAndPassword(phone, password);
 	}
@@ -28,5 +30,9 @@ public class UserDao {
 
 	public void delete(int id) {
 		userRepository.deleteById(id);
+	}
+
+	public Optional<User> findByToken(String token) {
+		return userRepository.findByToken(token);
 	}
 }
