@@ -29,10 +29,14 @@ public class BusService {
 		ResponseStructure<Bus> structure = new ResponseStructure<>();
 		if (recAdmin.isPresent()) {
 			Bus bus = mapToBus(busRequest);
+			bus.setAvailableSeats(bus.getAvailableSeats());
 			bus.setAdmin(recAdmin.get());
 			recAdmin.get().getBuses().add(bus);
 			adminDao.saveAdmin(recAdmin.get());
 			busDao.saveBus(bus);
+			structure.setData(bus);
+			structure.setMessage("Bus Added");
+			structure.setStatusCode(HttpStatus.CREATED.value());
 			return ResponseEntity.status(HttpStatus.CREATED).body(structure);
 		}
 		throw new AdminNotFoundException("Cannot Add Bus as Admin Id is Invalid");
@@ -50,6 +54,8 @@ public class BusService {
 		dbBus.setName(busRequest.getTo());
 		dbBus.setNumberOfSeats(busRequest.getNumberOfSeats());
 		dbBus.setName(busRequest.getName());
+		dbBus.setCostPerSeat(busRequest.getCostPerSeat()); 
+		dbBus.setAvailableSeats(busRequest.getNumberOfSeats());
 		dbBus = busDao.saveBus(dbBus);
 		structure.setData(dbBus);
 		structure.setMessage("Bus updated");
@@ -68,6 +74,19 @@ public class BusService {
 		return ResponseEntity.status(HttpStatus.OK).body(structure);
 	}
 
+	public ResponseEntity<ResponseStructure<String>> delete(int id) {
+		ResponseStructure<String> structure = new ResponseStructure<>();
+		Optional<Bus> dbBus = busDao.findById(id);
+		if (dbBus.isPresent()) {
+			busDao.delete(id);
+			structure.setData("bus Found");
+			structure.setMessage("bus deleted");
+			structure.setStatusCode(HttpStatus.OK.value());
+			return ResponseEntity.status(HttpStatus.OK).body(structure);
+		}
+		throw new AdminNotFoundException("Cannot delete bus as Id is Invalid");
+	}
+	
 	public ResponseEntity<ResponseStructure<List<Bus>>> findBuses(String from, String to, LocalDate dateOfDeparture) {
 		ResponseStructure<List<Bus>> structure = new ResponseStructure<>();
 		List<Bus> buses = busDao.findBuses(from, to, dateOfDeparture);
@@ -101,6 +120,6 @@ public class BusService {
 	public Bus mapToBus(BusRequest busRequest) {
 		return Bus.builder().name(busRequest.getName()).busNumber(busRequest.getBusNumber())
 				.dateOfDeparture(busRequest.getDateOfDeparture()).from(busRequest.getFrom()).to(busRequest.getTo())
-				.numberOfSeats(busRequest.getNumberOfSeats()).build();
+				.numberOfSeats(busRequest.getNumberOfSeats()).costPerSeat(busRequest.getCostPerSeat()).build();
 	}
 }

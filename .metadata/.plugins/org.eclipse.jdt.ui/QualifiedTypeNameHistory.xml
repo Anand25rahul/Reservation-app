@@ -12,7 +12,6 @@
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
-    <fullyQualifiedTypeName name="java.util.Optional"/>
     <fullyQualifiedTypeName name="org.jsp.reservationapp.dto.AdminRequest"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
     <fullyQualifiedTypeName name="org.jsp.reservationapp.dto.UserRequest"/>
@@ -23,11 +22,7 @@
     <fullyQualifiedTypeName name="jakarta.persistence.Column"/>
     <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
     <fullyQualifiedTypeName name="org.springframework.http.ResponseEntity"/>
-    <fullyQualifiedTypeName name="org.jsp.reservationapp.dto.ResponseStructure"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
-    <fullyQualifiedTypeName name="org.jsp.reservationapp.model.Admin"/>
-    <fullyQualifiedTypeName name="org.jsp.reservationapp.dto.AdminResponse"/>
     <fullyQualifiedTypeName name="org.jsp.reservationapp.model.User"/>
     <fullyQualifiedTypeName name="org.jsp.reservationapp.dto.UserResponse"/>
     <fullyQualifiedTypeName name="lombok.Data"/>
@@ -39,4 +34,17 @@
     <fullyQualifiedTypeName name="org.jsp.reservationapp.dto.BusResponse"/>
     <fullyQualifiedTypeName name="org.jsp.reservationapp.util.AccountStatus"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.CrossOrigin"/>
+    <fullyQualifiedTypeName name="net.bytebuddy.utility.RandomString"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="java.util.Optional"/>
+    <fullyQualifiedTypeName name="org.jsp.reservationapp.exception.AdminNotFoundException"/>
+    <fullyQualifiedTypeName name="org.jsp.reservationapp.model.Admin"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServletRequest"/>
+    <fullyQualifiedTypeName name="org.jsp.reservationapp.dto.AdminResponse"/>
+    <fullyQualifiedTypeName name="java.io.IOException"/>
+    <fullyQualifiedTypeName name="org.jsp.reservationapp.dto.ResponseStructure"/>
+    <fullyQualifiedTypeName name="jakarta.servlet.http.HttpServletResponse"/>
 </qualifiedTypeNameHistroy>

@@ -1,20 +1,18 @@
-import React from 'react'
-import "../Styles/landingpage.css"
-import { Link } from 'react-router-dom'
-
-const LandingPage=()=> {
-  return (
-    <div className="landingpage">
-        <Link to="/adminlogin">
-        <img src="https://e7.pngegg.com/pngimages/9/763/png-clipart-computer-icons-login-user-system-administrator-admin-desktop-wallpaper-megaphone.png" alt="" />
-        <h2>Admin</h2>
-        </Link>
-        <Link to="/userlogin">
-            <img src="https://w7.pngwing.com/pngs/505/761/png-transparent-login-computer-icons-avatar-icon-monochrome-black-silhouette-thumbnail.png" alt="" />
-            <h2>User</h2>
-        </Link>
-    </div>
-  )
+import { Link } from "react-router-dom";
+import '../Styles/LandingPage.css'
+const LandingPage = () => {
+    return ( 
+        <div className="landingpage">
+            <Link to="/adminlogin">
+                <img src="https://t4.ftcdn.net/jpg/02/27/45/09/360_F_227450952_KQCMShHPOPebUXklULsKsROk5AvN6H1H.jpg" alt="" />
+                <h2>Admin</h2>
+            </Link>
+            <Link to="/userlogin">
+                <img src="https://cdn-icons-png.flaticon.com/512/4715/4715330.png" alt="" />
+                <h2>User</h2>
+            </Link>
+        </div>
+     );
 }
-
-export default LandingPage
+ 
+export default LandingPage;

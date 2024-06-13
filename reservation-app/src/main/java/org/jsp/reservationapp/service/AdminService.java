@@ -138,6 +138,30 @@ public class AdminService {
 		}
 		throw new AdminNotFoundException("Cannot delete Admin as Id is Invalid");
 	}
+	
+	public String forgotPassword(String email, HttpServletRequest request) {
+		Optional<Admin> recAdmin = adminDao.findByEmail(email);
+		if(recAdmin.isEmpty())
+			throw new AdminNotFoundException("Invalid Email Id");
+		Admin admin = recAdmin.get();
+		String resetPasswordLink = linkGeneratorService.getResetPasswordLink(admin, request);
+		emailConfiguration.setToAddress(email);
+		emailConfiguration.setText("Please click on the following link to reset your password" + resetPasswordLink);
+		emailConfiguration.setSubject("Reset Your Password");
+		mailService.sendMail(emailConfiguration);
+		return "reset password link has been sent to entered mail id";
+	}
+	
+	public AdminResponse verifyLink(String token) {
+		Optional<Admin> recAdmin = adminDao.findByToken(token);
+		if(recAdmin.isEmpty())
+			throw new AdminNotFoundException("Link has been expired or it is Invalid");
+		Admin dbAdmin = recAdmin.get();
+		dbAdmin.setToken(null);
+//		dbAdmin.setStatus("INACTIVE");
+//		adminDao.saveAdmin(dbAdmin);
+		return mapToAdminResponse(dbAdmin);
+	}
 
 	private Admin mapToAdmin(AdminRequest adminRequest) {
 		return Admin.builder().email(adminRequest.getEmail()).name(adminRequest.getName())
